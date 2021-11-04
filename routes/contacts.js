@@ -23,6 +23,7 @@ router.put('/:id', (req, res) =>{
     res.send('Update contact');
 }); //api/users
 
+
 // @route   DELETE api/contacts/:id
 // @desc    Auth user & get token
 // @access  Public
