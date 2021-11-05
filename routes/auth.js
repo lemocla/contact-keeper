@@ -9,7 +9,7 @@ const config = require('config')
 // middleware auth.js
 const auth = require('../middleware/auth')
 // ...rest of the initial code omitted for simplicity.
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 

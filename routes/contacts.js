@@ -3,7 +3,7 @@ const router = express.Router();
 // auth middleware
 const auth = require('../middleware/auth');
 // ...rest of the initial code omitted for simplicity.
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 // Models
 const Contact = require('../models/Contact');
 const User = require('../models/User');

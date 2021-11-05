@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 //config
 const config = require('config')
 // ...rest of the initial code omitted for simplicity.
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../models/User');
 
