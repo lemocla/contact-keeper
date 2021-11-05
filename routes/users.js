@@ -38,7 +38,7 @@ router.post('/', [
        // salt
        const salt = await bcrypt.genSalt(10);
        // hash the passowrd
-       user.password = await bcript.hash( password, salt );
+       user.password = await bcrypt.hash( password, salt );
        // create a user in MongoDB
        await user.save();
        //payload for jwt
