@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 // import bcrypt 
 const bcrypt = require('bcryptjs');
+//Json webtoken
+const jwt = require('jsonwebtoken');
+//config
+const config = require('config')
 // ...rest of the initial code omitted for simplicity.
 const { body, validationResult } = require('express-validator');
 
@@ -35,9 +39,24 @@ router.post('/', [
        const salt = await bcrypt.genSalt(10);
        // hash the passowrd
        user.password = await bcript.hash( password, salt );
-       // create a 
+       // create a user in MongoDB
        await user.save();
-       res.send('User saved');
+       //payload for jwt
+       const payload={
+           user: {
+               id: user.id
+           }
+       }
+       jwt.sign(
+           payload, 
+           config.get('jwtSecret'), {
+                expiresIn: 360000 //1hour
+           },
+           (err, token)=>{
+                if(err) throw err;
+                res.json({ token });
+            }
+       );
 
    } catch (err){
         console.error(err.message);
