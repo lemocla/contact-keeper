@@ -20,6 +20,16 @@ export default (state, action) => {
                 ...state,
                 //filter contact to be deleted from uk - only display contact not this id
                 contacts: state.contacts.filter(contact => contact.id !== action.payload )
+            };
+        case SET_CURRENT:
+            return{
+                ...state,
+                current: action.payload
+            }
+        case CLEAR_CURRENT:
+            return{
+                ...state,
+                current: null
             }
         default:
             return state;
