@@ -11,12 +11,14 @@ import {
     UPDATE_CONTACT,
     FILTER_CONTACTS,
     CLEAR_FILTER,
-    CONTACT_ERROR
+    CONTACT_ERROR,
+    GET_CONTACTS,
+    CLEAR_CONTACTS
 } from '../types';
 
 const ContactState = props =>{
     const initialState = {
-        contacts: [],
+        contacts: null,
         current: null,
         filtered: null, // will be an array
         error: null
@@ -26,6 +28,24 @@ const ContactState = props =>{
     const [state, dispatch] = useReducer(contactReducer, initialState);
 
     //Actions
+    
+    // Get contact
+    const getContacts = async () =>{
+        //contact.id = uuidv4(); // no need since connected to MongoDB
+
+        try {
+            const res = await axios.get('/api/contacts');
+            dispatch({ 
+                type: GET_CONTACTS, 
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: error.response.msg
+            })
+        }
+    }    
 
     //Add contact
     const addContact = async contact =>{
@@ -73,6 +93,13 @@ const ContactState = props =>{
         })
     }         
 
+    // clear contacts
+    const clearContacts = () =>{
+       dispatch({
+           type: CLEAR_CONTACTS
+       })
+    }
+
     //Update contact
     const updateContact = contact =>{
         dispatch({ 
@@ -111,6 +138,8 @@ const ContactState = props =>{
                 clearCurrent,
                 filterContacts,
                 clearFilter,
+                getContacts,
+                clearContacts
             }}
         >
             {props.children}
