@@ -39,10 +39,10 @@ const ContactState = props =>{
                 type: GET_CONTACTS, 
                 payload: res.data
             })
-        } catch (error) {
+        } catch (err) {
             dispatch({
                 type: CONTACT_ERROR,
-                payload: error.response.msg
+                payload: err.response.msg
             })
         }
     }    
@@ -61,13 +61,35 @@ const ContactState = props =>{
                 type: ADD_CONTACT, 
                 payload: res.data
             })
-        } catch (error) {
+        } catch (err) {
             dispatch({
                 type: CONTACT_ERROR,
-                payload: error.response.msg
+                payload: err.response.msg
             })
         }
 
+    }
+
+    //Update contact
+    const updateContact = async contact => {
+        //contact.id = uuidv4(); // no need since connected to MongoDB
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.put(`/api/contacts/${contact._id}`, contact, config);
+            dispatch({
+                type: UPDATE_CONTACT,
+                payload: res.data
+            })
+        } catch (err) {
+            dispatch({
+                type: CONTACT_ERROR,
+                payload: err.response.msg
+            })
+        }
     }
 
     //Delete contact
@@ -78,10 +100,10 @@ const ContactState = props =>{
                 type: DELETE_CONTACT, 
                 payload: id
             })
-        } catch (error) {
+        } catch (err) {
             dispatch({
                 type: CONTACT_ERROR,
-                payload: error.response.msg
+                payload: err.response.msg
             })
         }
 
@@ -109,13 +131,7 @@ const ContactState = props =>{
        })
     }
 
-    //Update contact
-    const updateContact = contact =>{
-        dispatch({ 
-            type: UPDATE_CONTACT, 
-            payload: contact
-        })
-    }    
+ 
 
     //Filter contacts
     const filterContacts = text =>{
