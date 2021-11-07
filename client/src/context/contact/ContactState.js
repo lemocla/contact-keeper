@@ -37,7 +37,8 @@ const ContactState = props =>{
                 type: 'professional'                
             }
         ],
-        current: null
+        current: null,
+        filtered: null // will be an array
     };
 
     //Reducer - dispatch allow to 
@@ -86,7 +87,19 @@ const ContactState = props =>{
     }    
 
     //Filter contacts
+    const filterContacts = text =>{
+        dispatch({
+            type: FILTER_CONTACTS,
+            payload: text
+        })
+    }
+
     //Clear filter
+    const clearFilter = () =>{
+        dispatch({
+            type: CLEAR_FILTER,
+        })
+    }
 
     //Return provider
     return (
@@ -94,11 +107,14 @@ const ContactState = props =>{
             value={{
                 contacts: state.contacts,
                 current: state.current,
+                filtered: state.filtered,
                 addContact,
                 updateContact,
                 deleteContact,
                 setCurrent,
-                clearCurrent
+                clearCurrent,
+                filterContacts,
+                clearFilter,
             }}
         >
             {props.children}
