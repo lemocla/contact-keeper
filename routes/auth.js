@@ -37,7 +37,7 @@ router.post('/', [
 ],
 async (req, res) =>{
     const errors = validationResult(req)
-    if(!errors.isEmptpy()){
+    if(!errors.isEmpty()){
         return res.status(400).json({ errors: errors.array() });
     }
     const {email, password} = req.body;
@@ -52,9 +52,9 @@ async (req, res) =>{
             return res.status(400).json({ msg: 'Invalid credentials'});
         }
         //password match
-        user.password = await bcrypt.hash( password, salt );
+        //user.password = await bcrypt.hash( password, salt );
         // create a user in MongoDB
-        await user.save();
+        //await user.save();
         //payload for jwt
         const payload={
             user: {
