@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import {v4 as uuidv4} from 'uuid';
+//import {v4 as uuidv4} from 'uuid'; // no more needed since integration with MongoDB
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
 import {
